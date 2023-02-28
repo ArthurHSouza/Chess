@@ -1,81 +1,9 @@
 #include "Pawn.h"
 #include "Board.h"
-/*
-Pawn::Pawn(int posX, int posY) : posX{ posX }, posY{ posY }, Piece{ posX, posY, LoadTexture("assets/pawn.png") }
-{
-	pieceImage = LoadTexture("assets/pawn.png");
-}
-Pawn::~Pawn()
-{
-	UnloadTexture(pieceImage);
-}
-*/
-
-/*
-void Pawn::draw()
-{
-	if (alive == true)
-		DrawTexture(pieceImage, posX, posY, WHITE);
-}
 
 
-bool Pawn::move(std::map<char, std::vector<Rec>>& b)
-{
-	std::cout << "Move";
-
-	/*
-	for (float i = 0; i < range; i++)
-	{
-		rangeBox.y = startYRangeBox + 14 + (128 * i);
-		rangeBox.x = (int)posX + 14;
-		DrawRectangleRec(rangeBox, GREEN);
-		if (CheckCollisionPointRec(GetMousePosition(), rangeBox) && IsMouseButtonPressed(MOUSE_BUTTON_LEFT) == true)
-		{
-			/*
-			std::cout << std::endl << "VOCE CLICOU NO VERDE" << posY << rangeBox.y << std::endl;
-			Piece::posY = (int)rangeBox.y;
-			Piece::hitBox.y = (int)rangeBox.y;
-			startYRangeBox = (int)rangeBox.y + 128;
-			Piece::selected = false;
-			
-			Piece::selected = false;
-			Piece::posY += 128*(i+1);
-			Piece::hitBox.y = Piece::posY;
-			startYRangeBox = Piece::posY+128;
-			firstMove = false;
-			return true;
-		}
-	}
-	
-	return true;
-}
-
-bool Pawn::selection(std::vector<Piece*> others, float &place)
-{
-
-	Piece::selected = true;
-	if (firstMove == true)
-		range = 2.f;
-	else range = 1.f;
-
-	for (float i = 0; i < range; i++)
-	{
-		rangeBox.y = startYRangeBox + 14 + (128 * i);
-		rangeBox.x = (int)posX + 14;
-		DrawRectangleRec(rangeBox, GREEN);
-		if (CheckCollisionPointRec(GetMousePosition(), rangeBox) && IsMouseButtonPressed(MOUSE_BUTTON_LEFT) == true)
-		{
-			//place = new float;
-			place = startYRangeBox + 14 + (128 * i);
-			return true;
-		}
-	}
-	return false;
-}
-*/
-
-Pawn::Pawn(char col, int row):
-	Piece::Piece(col, row, "assets/pawn.png")
+Pawn::Pawn(char col, int row, bool team):
+	Piece::Piece(col, row, team,"assets/pawn.png")
 {
 	value = 1;
 }
@@ -87,44 +15,84 @@ Pawn::~Pawn()
 
 std::vector < Rectangle> Pawn::selected(std::vector<Piece*> pieces)
 {
-	bool time_break = false;
+	time_break = false;
 
 	if (is_selected == true)
 	{
 		if (first_time_moving == false)
 			range = 1;
-		range_quad.x = (float)( (col%65) *128 +14);
 
+		range_quad.x = (float)( (col%65) *128 +14);
 		for (int i = 0; i < range; i++)
 		{
 			range_quad.y = (float)(128 * (row + i + 1) + 14);
+
 			for (auto p : pieces)
 			{
-
-				if (p->get_hit_box().x == hitbox.x && p->get_hit_box().y == hitbox.y)
-					continue;
-				if (CheckCollisionRecs(range_quad, p->get_hit_box()) == false)
+				if (p->get_team() != is_white)
 				{
-					range_quads.push_back(range_quad);
+
+					attack_rec_right.x = (col % 65) * 128 + 128 + 14;
+					attack_rec_right.y = (row + 1) * 128 + 14;
+					attack_rec_left.x = (col % 65) * 128 - 128 + 14;
+					attack_rec_left.y = (row + 1) * 128 + 14;
+
+					if (CheckCollisionRecs(attack_rec_right, p->get_hit_box()) == true)
+					{
+						range_quads.push_back(attack_rec_right);
+					}
+					if (CheckCollisionRecs(attack_rec_left, p->get_hit_box()) == true)
+					{
+						range_quads.push_back(attack_rec_left);
+					}
+				
 				}
-				else
+				if (CheckCollisionRecs(range_quad, p->get_hit_box()) == true)
+				{
 					time_break = true;
+					break;
+				}
 			}
-			if (time_break == true)
-				break;
+		if (time_break)
+			break;
+		range_quads.push_back(range_quad);
 		}
+		
 		for (Rectangle& r : range_quads)
 		{
-			DrawRectangleRec(r, GREEN);
+			DrawRectangleRec(r, fade_green);
 		}
+	}
+	else
+	{
+		if(range_quads.empty() == false)
+			range_quads.clear();
 	}
 	return range_quads;
 }
 
-void Pawn::move(char col, int row)
+void Pawn::move(char col, int row, std::vector<Piece*>& pi)
 {
 	this->col = col;
 	this->row = row;
 	first_time_moving = false;
 	range_quads.clear();
+
+	char* o_col = new char;
+	int o_row = 0;
+
+	for (int i = 0; i < pi.size(); i++)
+	{
+		o_row = pi.at(i)->get_pos_col(o_col);
+		if (pi.at(i)->get_team() != is_white)
+		{
+			if (this->col == *(o_col) && this->row == o_row)
+			{
+				delete pi.at(i);
+				pi.erase(pi.begin() + i);
+			}
+		}
+	}
+	delete o_col;
+
 }

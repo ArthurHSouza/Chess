@@ -10,9 +10,11 @@ class Piece
 private:
 	bool alive {true};
 protected:
+	Color fade_green = Fade(GREEN, 0.008f);
 	std::string path_image;
 	Texture2D pieceImage;
 	
+	bool is_white{false};
 	bool is_selected{ false };
 	int value{};
 	std::map<char, std::vector<Rec>> quad;
@@ -25,41 +27,23 @@ protected:
 	int range = 2;
 
 public:
-	Piece(char col, int row, std::string path);
+	Piece(char col, int row,bool team,std::string path);
 	virtual ~Piece();
 
 	void draw();
+	
+	int get_pos_col(char* col);
 
-	virtual void move(char col, int row);
+	virtual void move(char col, int row, std::vector<Piece*>& pi);
 	virtual std::vector<Rectangle> selected(std::vector<Piece*> pieces);
 	Rectangle get_hit_box();
+
+	bool verify_collision(std::vector<Piece*> pi); // deletar
+	bool get_team() const;
+	bool& set_alive();
 
 	void set_selected();
 	void set_selected(bool bal);
 
-	/*
-	bool alive{ true };
-	bool isWhite{ false };
-	int value{};
-	float range{};
-protected:
-	int posY{};
-	int posX{};
-	Rectangle hitBox{ (float)posX, (float)posY, 128, 128};
-	Rectangle rangeBox{ (float)posX, (float)posY,100, 100 };
-	bool selected{ false };
-
-
-public:
-	Piece(int posX, int posY, Texture2D image);
-	virtual ~Piece();
-	//virtual bool move();
-	virtual bool move(std::map<char, std::vector<Rec>>& b);
-	void draw();
-	virtual bool  selection(std::vector<Piece*>others, float& place);
-	bool get_selected();
-	Rectangle get_hit_box();
-
-};*/
 };
 
