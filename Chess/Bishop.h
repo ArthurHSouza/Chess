@@ -3,17 +3,13 @@
 
 class Bishop :public Piece
 {
-	/*
-	private:
-		int posX;
-		int posY;
-		int range = 10;
-		int row = 0;
-	public:
-		Bishop(int posX, int posY);
-		virtual ~Bishop() = default;
-		virtual bool move(std::map<char, std::vector<Rec>>& b);
-	};
+private:
+	Rectangle range_quad_left{ 14,270,100,100 };
+public:
+	Bishop(char col, int row, bool team);
+	~Bishop();
 
-	*/
+	std::vector <Rectangle> calculate_range(std::vector<Piece*> pieces) override;
+
+	void move(char col, int row, std::vector<Piece*>& pi) override;
 };

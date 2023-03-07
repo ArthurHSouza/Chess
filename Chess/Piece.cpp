@@ -3,6 +3,7 @@
 Piece::Piece(char col, int row, bool team, std::string path) :
 	col{ col }, row{ row }, is_white{team}, path_image{path}
 {
+	fade_green = Fade(GREEN, 0.6f);
 	pieceImage = LoadTexture(path_image.c_str());
 }
 
@@ -16,7 +17,7 @@ void Piece::move(char col, int row, std::vector<Piece*>& pi)
 	return;
 }
 
-std::vector<Rectangle> Piece::selected(std ::vector<Piece*> pieces)
+std::vector<Rectangle> Piece::calculate_range(std ::vector<Piece*> pieces)
 {
 	std::vector<Rectangle>rec;
 	return rec;
@@ -80,6 +81,11 @@ bool& Piece::set_alive()
 	return alive;
 }
 
+bool Piece::get_is_selected() const
+{
+	return is_selected;
+}
+
 
 void Piece::set_selected()
 {
@@ -87,48 +93,16 @@ void Piece::set_selected()
 }
 void Piece::set_selected(bool val)
 {
+	if (val == false)
+		range_quads.clear();
 	is_selected = val;
 }
 
-/*
-bool Piece::move(std::map<char, std::vector<Rec>>& b)
-{/*
-	for (float i = 0; i < range; i++)
-	{
-		rangeBox.y = 256 + (128 * i);
-		rangeBox.x = posX;
-		DrawRectangleRec(rangeBox, GREEN);
-		if (CheckCollisionPointRec(GetMousePosition(), rangeBox) && IsMouseButtonPressed(MOUSE_BUTTON_LEFT) == true)
+void Piece::draw_range()
+{
+	if(is_selected == true)
+		for (Rectangle& r : range_quads)
 		{
-			posY = (int)rangeBox.y;
-			hitBox.y = (int)rangeBox.y;
-			selected = false;
+			DrawRectangleRec(r, fade_green);
 		}
-	}
-	std::cout << "BASE";
-	return true;
 }
-void Piece::draw()
-{
-	if(alive == true)
-		if(isWhite == true)
-			DrawTexture(pieceImage, posX, posY, LIGHTGRAY);
-		else
-			DrawTexture(pieceImage, posX, posY, BLACK);
-}
-
-bool Piece::selection(std::vector<Piece*>pieces, float& place)
-{
-	return true;
-}
-
-bool Piece::get_selected()
-{
-	return selected;
-}
-
-Rectangle Piece::get_hit_box()
-{
-	return hitBox;
-}
-*/
