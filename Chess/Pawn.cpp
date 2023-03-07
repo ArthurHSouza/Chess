@@ -104,5 +104,4 @@ void Pawn::move(char input_col, int input_row, std::vector<Piece*>& pi)
 		}
 	}
 	delete o_col;
-
 }

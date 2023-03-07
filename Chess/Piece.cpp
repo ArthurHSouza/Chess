@@ -45,9 +45,28 @@ int Piece::get_pos_col(char* col) const
 	return row;
 }
 
-void Piece::move(char col, int row, std::vector<Piece*>& pi)
+void Piece::move(char input_col, int input_row, std::vector<Piece*>& pi)
 {
-	return;
+	col = input_col;
+	row = input_row;
+	range_quads.clear();
+
+	char* o_col = new char;
+	int o_row = 0;
+
+	for (int i = 0; i < pi.size(); i++)
+	{
+		o_row = pi.at(i)->get_pos_col(o_col);
+		if (pi.at(i)->get_team() != is_white)
+		{
+			if (this->col == *(o_col) && this->row == o_row)
+			{
+				delete pi.at(i);
+				pi.erase(pi.begin() + i);
+			}
+		}
+	}
+	delete o_col;
 }
 
 std::vector<Rectangle> Piece::calculate_range(std ::vector<Piece*> pieces)

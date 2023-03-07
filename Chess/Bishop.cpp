@@ -80,30 +80,3 @@ std::vector<Rectangle> Bishop::calculate_range(std::vector<Piece*> pieces)
 	}
 	return range_quads;
 }
-
-
-
-void Bishop::move(char col, int row, std::vector<Piece*>& pi)
-{
-	this->col = col;
-	this->row = row;
-	range_quads.clear();
-
-	char* o_col = new char;
-	int o_row = 0;
-
-	for (int i = 0; i < pi.size(); i++)
-	{
-		o_row = pi.at(i)->get_pos_col(o_col);
-		if (pi.at(i)->get_team() != is_white)
-		{
-			if (this->col == *(o_col) && this->row == o_row)
-			{
-				delete pi.at(i);
-				pi.erase(pi.begin() + i);
-			}
-		}
-	}
-	delete o_col;
-
-}

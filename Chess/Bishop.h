@@ -8,6 +8,4 @@ public:
 	~Bishop();
 
 	std::vector <Rectangle> calculate_range(std::vector<Piece*> pieces) override;
-
-	void move(char col, int row, std::vector<Piece*>& pi) override;
 };
