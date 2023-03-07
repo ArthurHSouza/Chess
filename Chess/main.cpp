@@ -23,15 +23,15 @@ int main()
 	Piece* p2 = new Pawn('B', 1, false);
 	Piece* p3 = new Pawn('C', 1, false);
 	Piece* p4 = new Pawn('D', 3, true);
-	Piece* p5 = new Pawn('E', 2, false);
+	Piece* p5 = new Pawn('E', 2, true);
 	Piece* p6 = new Pawn('F', 1, false);
 	Piece* p7 = new Pawn('G', 1, false);
 	Piece* p8 = new Pawn('H', 1, false);
-	Piece* p9 = new Pawn('A', 6, true);
-	Piece* b1 = new Bishop('C', 0, false);
+	Piece* p9 = new Pawn('B', 6, true);
+	Piece* b1 = new Bishop('C', 2, false);
 
 	std::vector<Piece*> pieces = { p1, p2 , p3, p4, p5, p6, p7, p8, p9, b1};
-	SetTargetFPS(30);
+	
 	while (!WindowShouldClose())
 	{
 		BeginDrawing();

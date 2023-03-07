@@ -7,7 +7,7 @@
 class Player
 {
 private:
-	bool is_white{ true };
+	bool control_white{ false };
 	char selected_col{};
 	int selected_row{};
 	Piece* selected_piece{nullptr};

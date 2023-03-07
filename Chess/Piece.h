@@ -24,7 +24,7 @@ protected:
 	Rectangle hitbox{ 0,0,128,128 };
 	Rectangle range_quad{ 14,270,100,100 };
 	std::vector<Rectangle> range_quads;
-	int range = 10;
+	int max_range = 10;
 
 public:
 	Piece(char col, int row,bool team,std::string path);

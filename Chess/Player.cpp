@@ -12,7 +12,7 @@ Piece* Player::select_piece(std::vector<Piece*>& p)
 
 	for (int i{}; i < p.size(); i++)
 	{
-		if (p.at(i)->get_team() != is_white)
+		if (p.at(i)->get_team() != control_white)
 			continue;
 
 		if ((CheckCollisionPointRec(GetMousePosition(), (p.at(i)->get_hit_box())) && IsMouseButtonPressed(MOUSE_BUTTON_LEFT)))

@@ -3,7 +3,7 @@
 Piece::Piece(char col, int row, bool team, std::string path) :
 	col{ col }, row{ row }, is_white{team}, path_image{path}
 {
-	fade_green = Fade(GREEN, 0.6f);
+	fade_green = Fade(GREEN, 0.5f);
 	pieceImage = LoadTexture(path_image.c_str());
 }
 
