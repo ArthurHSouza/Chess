@@ -20,35 +20,7 @@ std::vector<Rectangle> Bishop::calculate_range(std::vector<Piece*> pieces)
 			{
 				range_quad.x = float(((col + 1) % 65) * 128 + (128 * i) + 14);
 				range_quad.y = float((row + (j*1)) * 128 +( j *(128 * i)) + 14);
-				/*
-				for (const auto p : pieces)
-				{
-					//Da pra simplificar colocando essa verificao dentro da verificacao de colision
-					if (is_white != p->get_team())
-					{
-						if (CheckCollisionRecs(range_quad, p->get_hit_box()))
-						{
-							time_break = true;
-							range_quads.push_back(range_quad);
-							break;
-						}
-					}
-					else
-					{
-						if (CheckCollisionRecs(range_quad, p->get_hit_box()))
-						{
-							time_break = true;
-							break;
-						}
-					}
 
-				}
-				if (time_break)
-				{
-					time_break = false;
-					break;
-				}
-				*/
 				
 				if (check_collision(range_quad,pieces))
 				{
@@ -72,6 +44,7 @@ std::vector<Rectangle> Bishop::calculate_range(std::vector<Piece*> pieces)
 			}
 
 		}
+		
 	}
 	else
 	{
