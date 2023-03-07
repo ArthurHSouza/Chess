@@ -3,8 +3,6 @@
 
 class Bishop :public Piece
 {
-private:
-	Rectangle range_quad_left{ 14,270,100,100 };
 public:
 	Bishop(char col, int row, bool team);
 	~Bishop();

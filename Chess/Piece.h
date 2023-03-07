@@ -17,33 +17,39 @@ protected:
 	
 	bool is_white{false};
 	bool is_selected{ false };
+	bool time_break{ false };
+	
 	int value{};
-	std::map<char, std::vector<Rec>> quad;
+	
 	char col;
 	int row;
+	
 	Rectangle hitbox{ 0,0,128,128 };
 	Rectangle range_quad{ 14,270,100,100 };
+	Rectangle range_quad_left{ 14,270,100,100 };
 	std::vector<Rectangle> range_quads;
-	int max_range = 10;
+	
+	int max_range {10};
 
+	bool check_collision(Rectangle quad, std::vector<Piece*> pieces);
 public:
 	Piece(char col, int row,bool team,std::string path);
 	virtual ~Piece();
 
 	void draw();
-	void draw_range();
+	void draw_range() const;
 
-	int get_pos_col(char* col);
+	int get_pos_col(char* col) const;
 
 	virtual void move(char col, int row, std::vector<Piece*>& pi);
+
 	virtual std::vector<Rectangle> calculate_range(std::vector<Piece*> pieces);
 	
-	Rectangle get_hit_box();
+	Rectangle get_hit_box() const;
 
-	bool verify_collision(std::vector<Piece*> pi); // deletar
 	bool get_team() const;
-	bool& set_alive();
 	bool get_is_selected() const;
+
 	void set_selected();
 	void set_selected(bool val);
 };

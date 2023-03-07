@@ -36,6 +36,9 @@
     <ClCompile Include="GameMode.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Horse.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Piece.h">
@@ -54,6 +57,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="GameMode.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Horse.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

@@ -5,7 +5,6 @@ class Pawn : public Piece
 {
 private:
 	bool first_time_moving{ true };
-	bool time_break = false;
 	Rectangle attack_rec_left{ 0,0, 100,100 };
 	Rectangle attack_rec_right{ 0,0, 100,100 };
 

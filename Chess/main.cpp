@@ -28,7 +28,7 @@ int main()
 	Piece* p7 = new Pawn('G', 1, false);
 	Piece* p8 = new Pawn('H', 1, false);
 	Piece* p9 = new Pawn('B', 6, true);
-	Piece* b1 = new Bishop('C', 2, false);
+	Piece* b1 = new Bishop('C', 2, true);
 
 	std::vector<Piece*> pieces = { p1, p2 , p3, p4, p5, p6, p7, p8, p9, b1};
 	
