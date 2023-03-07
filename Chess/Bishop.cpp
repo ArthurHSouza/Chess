@@ -15,26 +15,34 @@ std::vector<Rectangle> Bishop::calculate_range(std::vector<Piece*> pieces)
 	bool lef_end = false;
 	if (is_selected == true)
 	{
-		for (int j = -1; j < 2; j+=2)
+		for (int j = 1; j > -2; j -= 2)
 		{
-			for (int i = 0; i < range; i++)
+			for (int i = 0; i < max_range; i++)
 			{
-				range_quad.x = (float)((col % 65) * 128 + (j* 128 * (i + 1)) + 14);
-				range_quad.y = (float)((row + 1) * 128 * (i + 1) + 14);
+				range_quad.x = float(((col + 1) % 65) * 128 + (128 * i) + 14);
+				range_quad.y = float((row + (j*1)) * 128 +( j *(128 * i)) + 14);
 
-				if (range_quad.x < 0 || range_quad.x > 1280)
-					break;
-
-				for (auto p : pieces)
+				for (const auto p : pieces)
 				{
-					if (p->get_team() == is_white)
+					//Da pra simplificar colocando essa verificao dentro da verificacao de colision
+					if (is_white != p->get_team())
 					{
-						if (CheckCollisionRecs(range_quad, p->get_hit_box()) == true)
+						if (CheckCollisionRecs(range_quad, p->get_hit_box()))
+						{
+							time_break = true;
+							range_quads.push_back(range_quad);
+							break;
+						}
+					}
+					else
+					{
+						if (CheckCollisionRecs(range_quad, p->get_hit_box()))
 						{
 							time_break = true;
 							break;
 						}
 					}
+
 				}
 				if (time_break)
 				{
@@ -50,11 +58,7 @@ std::vector<Rectangle> Bishop::calculate_range(std::vector<Piece*> pieces)
 		if (range_quads.empty() == false)
 			range_quads.clear();
 	}
-
-	for (Rectangle& r : range_quads)
-	{
-		DrawRectangleRec(r, fade_green);
-	}
+	std::cout << range_quads.size();
 	return range_quads;
 }
 
