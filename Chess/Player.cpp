@@ -26,11 +26,8 @@ Piece* Player::select_piece(std::vector<Piece*>& p)
 			p.at(i)->set_selected();
 
 			range_of_selected_piece = p.at(i)->calculate_range(p);
-			//std::cout << range_of_piece.size() << std::endl;
 
 			selected_piece = p.at(i);
-			//select_pos_to_move(p.at(i),p, range_of_piece);
-			//return p.at(i);
 		}
 
 
@@ -47,21 +44,9 @@ Piece* Player::select_piece(std::vector<Piece*>& p)
 
 bool Player::select_pos_to_move(Piece* p, std::vector<Piece*>& pieces, std::vector<Rectangle> pos_quads)
 {
-	//selected_col = 0;
-	//selected_row = 0;
-
-	//std::cout << "Tamanho" << pos_quads.size() << std::endl;
 	for (int i{}; i < pos_quads.size(); i++)
 		if (CheckCollisionPointRec(GetMousePosition(), pos_quads.at(i)) && IsMouseButtonPressed(MOUSE_BUTTON_LEFT))
 		{
-			//debug
-			//std::cout << "Dentro: Tamanho do vetor" << pos_quads.size() << std::endl;
-			/*
-			std::cout << std::endl;
-			for (Rectangle r : pos_quads)
-			{
-				std::cout << "X: " << r.x << " Y: " << r.y << std::endl;
-			}*/
 			for (int j = 0; j < 8; j++)
 			{
 				if (pos_quads.at(i).y > (128 * j) && ((128 * (j + 1)) > pos_quads.at(i).y))

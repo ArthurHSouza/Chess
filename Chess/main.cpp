@@ -8,6 +8,7 @@
 #include "Board.h"
 #include "Player.h"
 #include "Horse.h"
+#include "Tower.h"
 
 int main()
 {
@@ -30,7 +31,8 @@ int main()
 	Piece* p9 = new Pawn('B', 6, true);
 	Piece* b1 = new Bishop('C', 2, true);
 	Piece* h1 = new Horse('E', 5, true);
-	std::vector<Piece*> pieces = { p1, p2 , p3, p4, p5, p6, p7, p8, p9, b1, h1};
+	Piece* t1 = new Tower('F', 4, true);
+	std::vector<Piece*> pieces = { p1, p2 , p3, p4, p5, p6, p7, p8, p9, b1, h1, t1};
 	
 	while (!WindowShouldClose())
 	{
@@ -52,6 +54,8 @@ int main()
 		if (selected_piece != nullptr)
 		{
 			selected_piece->draw_range();
+			//Testar isso aqui na hora que estiver implementando o sistema de pontuação
+			//	player.select_pos_to_move(selected_piece, pieces, selected_piece->calculate_range(pieces)) ;
 		}
 		EndDrawing();
 		
