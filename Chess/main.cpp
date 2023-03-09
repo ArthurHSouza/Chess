@@ -9,6 +9,8 @@
 #include "Player.h"
 #include "Horse.h"
 #include "Tower.h"
+#include "Queen.h"
+#include "King.h"
 
 int main()
 {
@@ -32,7 +34,9 @@ int main()
 	Piece* b1 = new Bishop('C', 2, true);
 	Piece* h1 = new Horse('E', 5, true);
 	Piece* t1 = new Tower('F', 4, true);
-	std::vector<Piece*> pieces = { p1, p2 , p3, p4, p5, p6, p7, p8, p9, b1, h1, t1};
+	Piece* q1 = new Queen('F', 5, true);
+	Piece* k1 = new King('F', 6, true);
+	std::vector<Piece*> pieces = { p1, p2 , p3, p4, p5, p6, p7, p8, p9, b1, h1, t1, q1, k1};
 	
 	while (!WindowShouldClose())
 	{
