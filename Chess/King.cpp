@@ -19,5 +19,5 @@ void King::set_is_on_check(bool val)
 
 void King::draw_check()
 {
-	DrawRectangleRec(get_hit_box(), faded_red);
+	DrawRectangleRec(get_hitbox(), faded_red);
 }

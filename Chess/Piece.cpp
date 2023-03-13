@@ -1,5 +1,4 @@
 #include "Piece.h"
-#include "King.h"
 
 Piece::Piece(char col, int row, bool team, std::string path) :	col{ col }, row{ row }, is_white{team}, path_image{path}
 {
@@ -61,7 +60,7 @@ void Piece::move(char input_col, int input_row, std::vector<Piece*>& pieces)
 		if (pieces.at(i)->get_team() != is_white)
 		{
 			//if (this->col == *(o_col) && this->row == o_row)
-			if(CheckCollisionRecs(pieces.at(i)->get_hit_box(), hitbox))
+			if(CheckCollisionRecs(pieces.at(i)->get_hitbox(), hitbox))
 			{
 				delete pieces.at(i);
 				pieces.erase(pieces.begin() + i);
@@ -144,7 +143,7 @@ std::vector<Rectangle> Piece::calculate_range(std ::vector<Piece*> pieces)
 	return range_quads;
 }
 
-Rectangle Piece::get_hit_box() const
+Rectangle Piece::get_hitbox() const
 {
 	return hitbox;
 }
@@ -165,7 +164,7 @@ bool Piece::check_collision(Rectangle quad, std::vector<Piece*> pieces)
 	for (auto p : pieces)
 	{
 
-		if (CheckCollisionRecs(quad, p->get_hit_box()))
+		if (CheckCollisionRecs(quad, p->get_hitbox()))
 		{
 			time_break = true;
 

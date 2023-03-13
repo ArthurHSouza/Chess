@@ -50,18 +50,18 @@ std::vector < Rectangle> Pawn::calculate_range(std::vector<Piece*> pieces)
 					attack_rec_left.x = (float)((col % 'A') * 128 - 128 + 14);
 
 					//Verify if attack_rec_right or attack_rec_left are overlapping a enemy piece
-					if (CheckCollisionRecs(attack_rec_right, p->get_hit_box()))
+					if (CheckCollisionRecs(attack_rec_right, p->get_hitbox()))
 					{
 						range_quads.push_back(attack_rec_right);
 					}
-					if (CheckCollisionRecs(attack_rec_left, p->get_hit_box()))
+					if (CheckCollisionRecs(attack_rec_left, p->get_hitbox()))
 					{
 						range_quads.push_back(attack_rec_left);
 					}
 				
 				}
 				//The range was blocked by a piece of the same team
-				if (CheckCollisionRecs(range_quad, p->get_hit_box()))
+				if (CheckCollisionRecs(range_quad, p->get_hitbox()))
 				{
 					time_break = true;
 				}
@@ -94,7 +94,7 @@ void Pawn::become_queen(std::vector<Piece*>& pieces)
 	{
 		if (row == 0 || row == 7)
 		{
-			if (CheckCollisionRecs(pieces.at(i)->get_hit_box(), hitbox))
+			if (CheckCollisionRecs(pieces.at(i)->get_hitbox(), hitbox))
 			{
 				inner_queen = new Queen(col, row, is_white);
 				pieces.erase(pieces.begin() + i);

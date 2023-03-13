@@ -1,5 +1,7 @@
 #pragma once
 #include "Piece.h"
+
+//A class that represents the Tower
 class Tower : public Piece
 {
 public:

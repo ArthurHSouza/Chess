@@ -29,7 +29,7 @@ bool check(std::vector<Piece*> pieces, King* k)
 
 		for (const auto r : rec)
 		{
-			if (CheckCollisionRecs(r, k->get_hit_box()))
+			if (CheckCollisionRecs(r, k->get_hitbox()))
 			{
 				return true;
 			}

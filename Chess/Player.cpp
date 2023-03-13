@@ -1,4 +1,5 @@
 #include "Player.h"
+#include "Piece.h"
 
 Player::Player(bool control_white) : control_white{control_white}
 {
@@ -10,13 +11,12 @@ Player::~Player()
 }
 Piece* Player::select_piece(std::vector<Piece*>& p)
 {
-
 	for (int i{}; i < p.size(); i++)
 	{
 		if (p.at(i)->get_team() != control_white)
 			continue;
 
-		if ((CheckCollisionPointRec(GetMousePosition(), (p.at(i)->get_hit_box())) && IsMouseButtonPressed(MOUSE_BUTTON_LEFT)))
+		if ((CheckCollisionPointRec(GetMousePosition(), (p.at(i)->get_hitbox())) && IsMouseButtonPressed(MOUSE_BUTTON_LEFT)))
 		{
 			for (int j{}; j < p.size(); j++)
 				if (j == i)
@@ -30,15 +30,12 @@ Piece* Player::select_piece(std::vector<Piece*>& p)
 
 			selected_piece = p.at(i);
 		}
-
-
 	}
 	if (selected_piece)
 	{
 		return selected_piece;
 	}
 
-	
 	return nullptr;
 }
 
@@ -63,7 +60,6 @@ bool Player::select_pos_to_move(Piece* p, std::vector<Piece*>& pieces, std::vect
 					selected_col = j + 65;
 					break;
 				}
-
 			}
 
 			p->move(selected_col, selected_row, pieces);

@@ -1,16 +1,18 @@
 #pragma once
 #include "raylib.h"
-#include <iostream>
 #include <vector>
-#include "Piece.h"
 
 class Player
 {
 private:
+	//The player is controling the white pieces?
 	bool control_white{};
+
+	//Location wich the player selected
 	char selected_col{};
 	int selected_row{};
-	Piece* selected_piece{nullptr};
+
+	class Piece* selected_piece{nullptr};
 	std::vector<Rectangle> range_of_selected_piece{};
 
 public:

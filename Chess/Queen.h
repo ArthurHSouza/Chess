@@ -1,5 +1,7 @@
 #pragma once
 #include "Piece.h"
+
+//This class represent the Queen
 class Queen : public Piece
 {
 public:
