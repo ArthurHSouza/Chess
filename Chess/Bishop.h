@@ -1,6 +1,7 @@
 #pragma once
 #include "Piece.h"
 
+//This class represents the piece Bishop
 class Bishop :public Piece
 {
 public:

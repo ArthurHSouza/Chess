@@ -1,7 +1,8 @@
 #include "Player.h"
 
-Player::Player()
+Player::Player(bool control_white) : control_white{control_white}
 {
+	
 }
 
 Player::~Player()
@@ -34,7 +35,6 @@ Piece* Player::select_piece(std::vector<Piece*>& p)
 	}
 	if (selected_piece)
 	{
-		select_pos_to_move(selected_piece, p, range_of_selected_piece);
 		return selected_piece;
 	}
 
@@ -72,4 +72,9 @@ bool Player::select_pos_to_move(Piece* p, std::vector<Piece*>& pieces, std::vect
 			return true;
 		}
 	return false;
+}
+
+std::vector<Rectangle> Player::get_range_of_selected_piece() const
+{
+	return range_of_selected_piece;
 }

@@ -1,13 +1,16 @@
 #include "Horse.h"
+
 Horse::Horse(char col, int row, bool team) : Piece::Piece(col, row, team, "assets/horse.png")
 {
-	value = 7;
+	value = 3;
 }
 
 std::vector<Rectangle> Horse::calculate_range(std::vector<Piece*> pieces)
 {
+	//Values that will be used to multiply the cow/row
 	int col_mult = 2;
 	int row_mult = 1;
+
 	if (is_selected == true)
 	{
 		//All positions
@@ -17,7 +20,7 @@ std::vector<Rectangle> Horse::calculate_range(std::vector<Piece*> pieces)
 			{
 				for (int i = 1; i > -2; i -= 2)
 				{
-					range_quad.x = float(((col + (j * col_mult)) % 65) * 128 + 14);
+					range_quad.x = float(((col + (j * col_mult)) % 'A') * 128 + 14);
 					range_quad.y = float((row + (i * row_mult)) * 128 + 14);
 
 					if (check_collision(range_quad, pieces))

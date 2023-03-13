@@ -1,11 +1,9 @@
 #include "Pawn.h"
-#include "Board.h"
+#include "Queen.h"
 
-
-Pawn::Pawn(char col, int row, bool team):
-	Piece::Piece(col, row, team,"assets/pawn.png")
+Pawn::Pawn(char col, int row, bool team) : Piece::Piece(col, row, team,"assets/pawn.png")
 {
-	value = 5;
+	value = 1;
 	max_range = 2;
 }
 
@@ -13,7 +11,7 @@ Pawn::~Pawn()
 {
 }
 
-std::vector < Rectangle> Pawn::calculate_range(std::vector<Piece*> pieces)//team_pieces, std::vector<Piece*> enemy_pieces)
+std::vector < Rectangle> Pawn::calculate_range(std::vector<Piece*> pieces)
 {
 	time_break = false;
 
@@ -22,7 +20,8 @@ std::vector < Rectangle> Pawn::calculate_range(std::vector<Piece*> pieces)//team
 		if (first_time_moving == false)
 			max_range = 1;
 
-		range_quad.x = (float)( (col%65) *128 +14); //Convertendo a coluna para um valor numérico
+		//Convertendo a coluna para um valor numérico
+		range_quad.x = (float)( (col%'A') * 128 + 14);
 		for (int i = 0; i < max_range; i++)
 		{
 			if (is_white == true)
@@ -38,37 +37,39 @@ std::vector < Rectangle> Pawn::calculate_range(std::vector<Piece*> pieces)//team
 				{
 					if (is_white == true)
 					{
-						attack_rec_right.y = (row - 1) * 128 + 14;
-						attack_rec_left.y = (row - 1) * 128 + 14;
+						attack_rec_right.y = (float)((row - 1) * 128 + 14);
+						attack_rec_left.y = attack_rec_right.y;//(float)((row - 1) * 128 + 14);
 					}
 					else
 					{
-						attack_rec_right.y = (row + 1) * 128 + 14;
-						attack_rec_left.y = (row + 1) * 128 + 14;
+						attack_rec_right.y = (float)((row + 1) * 128 + 14);
+						attack_rec_left.y = attack_rec_right.y;// (float)((row + 1) * 128 + 14);
 					}
 
-					attack_rec_right.x = (col % 65) * 128 + 128 + 14;
-					attack_rec_left.x = (col % 65) * 128 - 128 + 14;
+					attack_rec_right.x = (float)((col % 'A') * 128 + 128 + 14);
+					attack_rec_left.x = (float)((col % 'A') * 128 - 128 + 14);
 
-					if (CheckCollisionRecs(attack_rec_right, p->get_hit_box()) == true)
+					//Verify if attack_rec_right or attack_rec_left are overlapping a enemy piece
+					if (CheckCollisionRecs(attack_rec_right, p->get_hit_box()))
 					{
 						range_quads.push_back(attack_rec_right);
 					}
-					if (CheckCollisionRecs(attack_rec_left, p->get_hit_box()) == true)
+					if (CheckCollisionRecs(attack_rec_left, p->get_hit_box()))
 					{
 						range_quads.push_back(attack_rec_left);
 					}
 				
 				}
-				if (CheckCollisionRecs(range_quad, p->get_hit_box()) == true)
+				//The range was blocked by a piece of the same team
+				if (CheckCollisionRecs(range_quad, p->get_hit_box()))
 				{
 					time_break = true;
-					//break;
 				}
 			}
 		if (time_break)
 			break;
 		range_quads.push_back(range_quad);
+		
 		}
 	}
 	else
@@ -80,28 +81,27 @@ std::vector < Rectangle> Pawn::calculate_range(std::vector<Piece*> pieces)//team
 	return range_quads;
 }
 
-void Pawn::move(char input_col, int input_row, std::vector<Piece*>& pi)
+void Pawn::move(char input_col, int input_row, std::vector<Piece*>& pieces)
 {
-	col = input_col;
-	row = input_row;
+	Piece::move(input_col, input_row, pieces);
 	first_time_moving = false;
+	become_queen(pieces);
+}
 
-	range_quads.clear();
-
-	char* o_col = new char;
-	int o_row = 0;
-
-	for (int i = 0; i < pi.size(); i++)
+void Pawn::become_queen(std::vector<Piece*>& pieces)
+{
+	for (int i = 0; i < pieces.size(); i++)
 	{
-		o_row = pi.at(i)->get_pos_col(o_col);
-		if (pi.at(i)->get_team() != is_white)
+		if (row == 0 || row == 7)
 		{
-			if (col == *(o_col) && row == o_row)
+			if (CheckCollisionRecs(pieces.at(i)->get_hit_box(), hitbox))
 			{
-				delete pi.at(i);
-				pi.erase(pi.begin() + i);
+				inner_queen = new Queen(col, row, is_white);
+				pieces.erase(pieces.begin() + i);
+				pieces.push_back(inner_queen);
+				delete this;
+				return;
 			}
 		}
 	}
-	delete o_col;
 }
