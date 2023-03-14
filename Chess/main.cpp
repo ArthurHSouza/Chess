@@ -187,7 +187,6 @@ int main()
 		
 		selected_piece = players.at(play_time).select_piece(pieces);
 
-
 		if (selected_piece)
 		{
 			selected_piece->draw_range();

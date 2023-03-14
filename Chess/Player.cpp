@@ -63,7 +63,7 @@ bool Player::select_pos_to_move(Piece* p, std::vector<Piece*>& pieces, std::vect
 			}
 
 			p->move(selected_col, selected_row, pieces);
-
+			selected_piece = nullptr;
 			p->set_selected();
 			return true;
 		}

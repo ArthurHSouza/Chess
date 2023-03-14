@@ -163,6 +163,11 @@ bool Piece::check_collision(Rectangle quad, std::vector<Piece*> pieces)
 	time_break = false;
 	for (auto p : pieces)
 	{
+		if (quad.x > 1024 || quad.y > 1024)
+		{
+			time_break = true;
+			break;
+		}
 
 		if (CheckCollisionRecs(quad, p->get_hitbox()))
 		{
