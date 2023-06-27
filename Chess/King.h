@@ -11,7 +11,7 @@ private:
 
 public:
 	King(char col, int row, bool team);
-
+	~King() = default;
 	bool get_is_on_check();
 	void set_is_on_check(bool val);
 

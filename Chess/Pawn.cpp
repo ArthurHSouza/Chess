@@ -7,10 +7,6 @@ Pawn::Pawn(char col, int row, bool team) : Piece::Piece(col, row, team,"assets/p
 	max_range = 2;
 }
 
-Pawn::~Pawn()
-{
-}
-
 std::vector < Rectangle> Pawn::calculate_range(std::vector<Piece*> pieces)
 {
 	time_break = false;
@@ -92,13 +88,14 @@ void Pawn::become_queen(std::vector<Piece*>& pieces)
 {
 	for (int i = 0; i < pieces.size(); i++)
 	{
+		//Condition to become a Queen
 		if (row == 0 || row == 7)
 		{
 			if (CheckCollisionRecs(pieces.at(i)->get_hitbox(), hitbox))
 			{
-				inner_queen = new Queen(col, row, is_white);
+				Queen* queen = new Queen(col, row, is_white);
 				pieces.erase(pieces.begin() + i);
-				pieces.push_back(inner_queen);
+				pieces.push_back(queen);
 				delete this;
 				return;
 			}

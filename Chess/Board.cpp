@@ -3,7 +3,9 @@
 Board::Board() {
 	boardImage = LoadTexture("assets/board.png");
 }
-Board::~Board() { UnloadTexture(boardImage); }
+Board::~Board() { 
+	UnloadTexture(boardImage); 
+}
 
 void Board::Draw()
 {

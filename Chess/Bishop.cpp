@@ -5,10 +5,6 @@ Bishop::Bishop(char col, int row, bool team): Piece::Piece(col, row, team, "asse
 	value = 3;
 }
 
-Bishop::~Bishop()
-{
-}
-
 std::vector<Rectangle> Bishop::calculate_range(std::vector<Piece*> pieces)
 {
 	if (is_selected == true)

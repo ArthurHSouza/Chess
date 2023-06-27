@@ -3,11 +3,12 @@
 
 Player::Player(bool control_white) : control_white{control_white}
 {
-	
+
 }
 
 Player::~Player()
 {
+	delete selected_piece;
 }
 Piece* Player::select_piece(std::vector<Piece*>& p)
 {

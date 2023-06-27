@@ -12,7 +12,7 @@ private:
 	char selected_col{};
 	int selected_row{};
 
-	class Piece* selected_piece{nullptr};
+	class Piece* selected_piece {nullptr};
 	std::vector<Rectangle> range_of_selected_piece{};
 
 public:
